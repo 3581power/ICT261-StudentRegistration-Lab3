@@ -50,7 +50,7 @@ public class StudentRegistrationApp extends Application {
         programmeBox.setPromptText("Select programme");
 
         ComboBox<String> genderBox = new ComboBox<>();
-        genderBox.getItems().addAll("Male", "Female", "Other");
+        genderBox.getItems().addAll("Male", "Female");
         genderBox.setPromptText("Select gender");
 
         TextField emailField = new TextField();
