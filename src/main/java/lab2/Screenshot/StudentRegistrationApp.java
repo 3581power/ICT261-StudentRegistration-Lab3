@@ -21,7 +21,7 @@ public class StudentRegistrationApp extends Application {
 
         // ---------- Welcome ----------
         Label welcome = new Label("Student Registration System - Bwalya Musonda (202503581)");
-        welcome.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        welcome.setId("welcome");
 
         // ---------- Inputs ----------
         TextField nameField = new TextField();
@@ -64,8 +64,13 @@ public class StudentRegistrationApp extends Application {
 
         // ---------- Buttons ----------
         Button registerBtn = new Button("Register Student");
+        registerBtn.setId("registerBtn");
+
         Button clearBtn = new Button("Clear Form");
+        clearBtn.setId("clearBtn");
+
         Button deleteBtn = new Button("Delete Student");
+        deleteBtn.setId("deleteBtn");
 
         Label status = new Label("Ready");
 
@@ -76,30 +81,39 @@ public class StudentRegistrationApp extends Application {
 
         TableColumn<Student, String> c1 = new TableColumn<>("Student No");
         c1.setCellValueFactory(new PropertyValueFactory<>("studentNumber"));
+        c1.setPrefWidth(110);
 
         TableColumn<Student, String> c2 = new TableColumn<>("Name");
         c2.setCellValueFactory(new PropertyValueFactory<>("name"));
+        c2.setPrefWidth(150);
 
         TableColumn<Student, String> c3 = new TableColumn<>("Year");
         c3.setCellValueFactory(new PropertyValueFactory<>("year"));
+        c3.setPrefWidth(60);
 
         TableColumn<Student, String> c4 = new TableColumn<>("Province");
         c4.setCellValueFactory(new PropertyValueFactory<>("province"));
+        c4.setPrefWidth(110);
 
         TableColumn<Student, String> c5 = new TableColumn<>("Programme");
         c5.setCellValueFactory(new PropertyValueFactory<>("programme"));
+        c5.setPrefWidth(120);
 
         TableColumn<Student, String> c6 = new TableColumn<>("Gender");
         c6.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        c6.setPrefWidth(80);
 
         TableColumn<Student, String> c7 = new TableColumn<>("Email");
         c7.setCellValueFactory(new PropertyValueFactory<>("email"));
+        c7.setPrefWidth(220);
 
         TableColumn<Student, String> c8 = new TableColumn<>("Phone");
         c8.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        c8.setPrefWidth(120);
 
         TableColumn<Student, String> c9 = new TableColumn<>("Date of Birth");
         c9.setCellValueFactory(new PropertyValueFactory<>("dob"));
+        c9.setPrefWidth(120);
 
         table.getColumns().addAll(c1, c2, c3, c4, c5, c6, c7, c8, c9);
 
@@ -115,7 +129,6 @@ public class StudentRegistrationApp extends Application {
             String phone = phoneField.getText().trim();
             LocalDate dob = dobPicker.getValue();
 
-            // Validation in order
             if (name.isEmpty()) {
                 status.setText("Enter the student name.");
                 nameField.requestFocus();
@@ -162,12 +175,10 @@ public class StudentRegistrationApp extends Application {
                 return;
             }
 
-            // All good — add student
             students.add(new Student(name, studentNumber, year, province,
                     programme, gender, email, phone, dob.toString()));
             status.setText("Student registered successfully.");
 
-            // Clear form
             nameField.clear();
             studentNumberField.clear();
             yearBox.setValue(null);
@@ -214,12 +225,11 @@ public class StudentRegistrationApp extends Application {
             }
         });
 
-        // ---------- Layout with GridPane (2 columns) ----------
+        // ---------- Layout with GridPane ----------
         GridPane form = new GridPane();
         form.setHgap(10);
         form.setVgap(10);
 
-        // Left column
         form.add(new Label("Student Name:"), 0, 0);
         form.add(nameField, 1, 0);
         form.add(new Label("Student Number:"), 0, 1);
@@ -231,7 +241,6 @@ public class StudentRegistrationApp extends Application {
         form.add(new Label("Programme:"), 0, 4);
         form.add(programmeBox, 1, 4);
 
-        // Right column
         form.add(new Label("Gender:"), 2, 0);
         form.add(genderBox, 3, 0);
         form.add(new Label("Email:"), 2, 1);
@@ -241,16 +250,14 @@ public class StudentRegistrationApp extends Application {
         form.add(new Label("Date of Birth:"), 2, 3);
         form.add(dobPicker, 3, 3);
 
-        // Button row
         HBox buttons = new HBox(10, registerBtn, clearBtn, deleteBtn);
 
-        // Main layout
         VBox root = new VBox(15, welcome, form, buttons, status, table);
         root.setPadding(new Insets(15));
 
-        Scene scene = new Scene(root, 1000, 650);
-
+        Scene scene = new Scene(root, 1200, 650);
         scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
         stage.setTitle("Student Registration System - Bwalya Musonda");
         stage.setScene(scene);
         stage.show();
